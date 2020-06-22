@@ -4,6 +4,7 @@ const config = require("./config.json");
 const fs = require("fs");
 bot.commands = new Discord.Collection();
 
+//load command files
 const commandFiles = fs.readdirSync("./commands").filter(file => file.endsWith('.js'));
 
 for(const file of commandFiles){
@@ -11,6 +12,7 @@ for(const file of commandFiles){
     bot.commands.set(command.name, command);
 };
 
+//message in console when bot starts up
 bot.once('ready', ready => {
     console.log("The bot is up and running!");
     
