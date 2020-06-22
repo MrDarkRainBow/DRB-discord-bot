@@ -37,6 +37,13 @@ bot.on("message", message => {
         console.error(error);
         message.reply("Well that didn't work :^|");
     }
+
+    //suggestions channel managment system
+    if(message.channel.id === config.suggestionsID && !message.author.bot){
+        message.react("👍").then(r => {
+            message.react("👎");
+        });
+    };
 });
 
 bot.login(config.token);
