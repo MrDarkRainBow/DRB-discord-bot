@@ -19,29 +19,34 @@ bot.once('ready', ready => {
     
 });
 
-bot.on("message", message => {
+mongo.connect(`${config.mongoURL}/usersDB`, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}, (err, client) => {
+    if(err){
+        console.error(err);
+        return;
+    };
 
-    mongo.connect(`${config.mongoURL}/usersDB`, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    }, (err, client) => {
-        if(err){
-            console.error(err);
-            return;
-        };
+    const db = client.db('usersDB');
 
-        const db = client.db('usersDB');
-        
-        bot.on("guildCreate", guild => {
-            db.createCollection(message.guild.id, (err, res) => {
-                if(err){
-                    console.error(err);
-                    return;
-                };
-            });
-            console.log("created collection for: " + guild.name);
-            
+    bot.on("guildCreate", guild => {
+        console.log("created collection for: " + guild.name);
+        db.createCollection(guild.id, (err, res) => {
+            if(err){
+                console.error(err);
+                return;
+            };
         });
+        
+        
+    });
+
+    bot.on("message", message => {
+
+    
+
+        
         
 
         //event handler
