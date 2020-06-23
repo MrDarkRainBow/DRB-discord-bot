@@ -29,7 +29,7 @@ mongo.connect(`${config.mongoURL}/usersDB`, {
     };
 
     const db = client.db('usersDB');
-
+    //create new collection when joining a new server
     bot.on("guildCreate", guild => {
         console.log("created collection for: " + guild.name);
         db.createCollection(guild.id, (err, res) => {
@@ -37,18 +37,21 @@ mongo.connect(`${config.mongoURL}/usersDB`, {
                 console.error(err);
                 return;
             };
+        });    
+    });
+
+    bot.on("guildDelete", guild => {
+        console.log("dropped collection for: " + guild.name);
+        
+        db.dropCollection(guild.id, (err, res) => {
+            if(err){
+                console.error(err);
+                return;
+            };
         });
-        
-        
     });
 
     bot.on("message", message => {
-
-    
-
-        
-        
-
         //event handler
         if(!message.content.startsWith(config.prefix) || message.author.bot) return;
 
