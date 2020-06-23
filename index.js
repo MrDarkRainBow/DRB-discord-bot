@@ -3,6 +3,7 @@ const bot = new Discord.Client();
 const config = require("./config.json");
 const fs = require("fs");
 bot.commands = new Discord.Collection();
+const mongo = require('mongodb').MongoClient;
 
 //load command files
 const commandFiles = fs.readdirSync("./commands").filter(file => file.endsWith('.js'));
@@ -20,23 +21,47 @@ bot.once('ready', ready => {
 
 bot.on("message", message => {
 
-    //event handler
-    if(!message.content.startsWith(config.prefix) || message.author.bot) return;
+    mongo.connect(`${config.mongoURL}/usersDB`, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    }, (err, client) => {
+        if(err){
+            console.error(err);
+            return;
+        };
 
-    const args = message.content.slice(config.prefix.length).split(/ +/);
-    const commandName = args.shift().toLowerCase();
+        const db = client.db('usersDB');
+        
+        bot.on("guildCreate", guild => {
+            db.createCollection(message.guild.id, (err, res) => {
+                if(err){
+                    console.error(err);
+                    return;
+                };
+            });
+            console.log("created collection for: " + guild.name);
+            
+        });
+        
 
-    const command = bot.commands.get(commandName)
-        || bot.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+        //event handler
+        if(!message.content.startsWith(config.prefix) || message.author.bot) return;
 
-    if(!command) return;
+        const args = message.content.slice(config.prefix.length).split(/ +/);
+        const commandName = args.shift().toLowerCase();
 
-    try{
-        command.execute(message, args);
-    }catch(error){
-        console.error(error);
-        message.reply("Well that didn't work :^|");
-    }
+        const command = bot.commands.get(commandName)
+            || bot.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+
+        if(!command) return;
+
+        try{
+            command.execute(message, args);
+        }catch(error){
+            console.error(error);
+            message.reply("Well that didn't work :^|");
+        };
+    });
 });
 
 bot.login(config.token);
