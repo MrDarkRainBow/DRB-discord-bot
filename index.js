@@ -18,6 +18,19 @@ bot.once('ready', ready => {
     
 });
 
+//read TOS.txt file and send message in users DM's when they join server. Can be dissabled in config
+fs.readFile('TOS.txt', 'utf8', (err, data) => {
+    if(err){
+        console.error(err);
+        return;
+    };
+    if(config.dmTOS === true){
+        bot.on("guildMemberAdd", member => {
+            member.send(data);
+        });
+    };
+});
+
 bot.on("message", message => {
 
     //event handler
