@@ -1,5 +1,6 @@
 module.exports = {
     name: 'reload',
+    aliases: 'rld',
     description: 'reloads a command',
     execute(message, args){
         if(!args.length){
