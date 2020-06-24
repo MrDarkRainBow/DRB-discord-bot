@@ -29,6 +29,7 @@ mongo.connect(`${config.mongoURL}/usersDB`, {
     };
 
     const db = client.db('usersDB');
+
     //create new collection when joining a new server
     bot.on("guildCreate", guild => {
         console.log("created collection for: " + guild.name);
@@ -40,6 +41,7 @@ mongo.connect(`${config.mongoURL}/usersDB`, {
         });    
     });
 
+    //drop collection when kicked or banned from server
     bot.on("guildDelete", guild => {
         console.log("dropped collection for: " + guild.name);
         
@@ -49,7 +51,7 @@ mongo.connect(`${config.mongoURL}/usersDB`, {
                 return;
             };
         });
-    });
+    });   
 
     bot.on("message", message => {
         //event handler
