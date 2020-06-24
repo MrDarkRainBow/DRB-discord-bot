@@ -3,6 +3,11 @@ module.exports = {
     aliases: 'rld',
     description: 'reloads a command',
     execute(message, args){
+        if(!message.member.hasPermission("ADMINISTRATOR")){
+            message.reply('you do not have the permissions for this command.');
+            return;
+        };
+
         if(!args.length){
             message.reply("you didn't specify a command.");
             return;
