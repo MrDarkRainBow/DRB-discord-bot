@@ -59,13 +59,18 @@ mongo.connect(`${config.mongoURL}/usersDB`, {
 
         //add user page in db if it does not exist
         async function exist(){
-            let exists = await db.collection(message.guild.id).findOne({_id: +message.author.id});
+
+            if(!message.author.bot){
+                let exists = await db.collection(message.guild.id).findOne({_id: +message.author.id});
             
-            if(exists){
-                return;
+                if(exists){
+                    return;
+                }else{
+                    client.db('usersDB').collection(message.guild.id).insertOne({_id: +message.author.id, xp: 0, level: 0, cooldown: 0});
+                    console.log('added user');
+                };
             }else{
-                client.db('usersDB').collection(message.guild.id).insertOne({_id: +message.author.id, xp: 0, level: 0, cooldown: 0});
-                console.log('added user');
+                return;
             };
         };
 
