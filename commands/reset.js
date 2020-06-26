@@ -13,11 +13,18 @@ module.exports = {
                 console.error(err);
                 return;
             };
-            async function reset(){
-                client.db('usersDB').collection(message.guild.id).updateOne({_id: +message.author.id}, {'$set': {xp: 0}});
+            if(!message.mentions.users.size){
                 message.reply('your xp has been reset');
+                client.db('usersDB').collection(message.guild.id).updateOne({_id: +message.author.id}, {'$set': {xp: 0}});
+            }else{
+                if(message.member.hasPermission("ADMINISTRATOR")){
+                    message.reply(`<@${message.mentions.users.first().id}>'s xp has been reset`);
+                    client.db('usersDB').collection(message.guild.id).updateOne({_id: +message.mentions.users.first().id}, {'$set': {xp: 0}});
+                }else{
+                    message.reply("you do not have the permissions for that!");
+                };
             };
-            reset();
+            
         });
     },
 };
