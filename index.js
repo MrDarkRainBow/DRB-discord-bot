@@ -55,7 +55,7 @@ mongo.connect(`${config.mongoURL}/usersDB`, {
 
     bot.on("message", message => {
 
-        exist();
+        exist().then(xp());
 
         //add user page in db if it does not exist
         async function exist(){
@@ -71,6 +71,29 @@ mongo.connect(`${config.mongoURL}/usersDB`, {
                 };
             }else{
                 return;
+            };
+        };
+
+        //generate random xp value and assign it to useres once a minute / cooldown amount
+        async function xp(){
+            let check = await db.collection(message.guild.id).findOne({_id: +message.author.id});
+            if(check){
+                db.collection(message.guild.id).find({_id: +message.author.id}).toArray((err, user) => {
+                    if(err){
+                        console.error(err);
+                        return;
+                    };
+                    let newXP = +user[0].xp + Math.floor(Math.random()*10) + 10;
+                    let nextLVL = (((5/6) * (+user[0].level +1))*(2*((+user[0].level + 1) * (+user[0].level + 1)) +27 +91)).toFixed(0);
+                    if(+user[0].cooldown + config.xpCooldown < Date.now()){
+                        db.collection(message.guild.id).updateOne({_id: +message.author.id}, {'$set': {xp: newXP}});
+                        db.collection(message.guild.id).updateOne({_id: +message.author.id}, {'$set': {cooldown: Date.now()}});
+                    };
+                    if(newXP > nextLVL){
+                        db.collection(message.guild.id).updateOne({_id: +message.author.id}, {'$set': {level: +user[0].level + 1}});
+                        message.reply(config.lvlupMsg);
+                    };
+                });
             };
         };
 
