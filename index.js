@@ -33,6 +33,13 @@ fs.readFile('TOS.txt', 'utf8', (err, data) => {
 
 bot.on("message", message => {
 
+    //suggestions channel managment system
+    if(message.channel.id === config.suggestionsID && !message.author.bot){       
+        message.react("👍").then(r => {
+            message.react("👎");
+        });
+    };
+
     //event handler
     if(!message.content.startsWith(config.prefix) || message.author.bot) return;
 
