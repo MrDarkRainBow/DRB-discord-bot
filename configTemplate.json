@@ -1,5 +1,6 @@
 {
     "token": "your token here",
     "prefix": "desired prefix here",
-    "suggestionsID": "suggestions channel ID here"
+    "suggestionsID": "suggestions channel ID here",
+    "dmTOS": false
 }

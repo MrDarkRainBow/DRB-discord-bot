@@ -1,0 +1,1 @@
+enter your TOS message that will be DMed to users when joining the server here. Can be dissabled in config.
