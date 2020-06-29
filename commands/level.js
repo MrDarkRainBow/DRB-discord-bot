@@ -14,12 +14,12 @@ module.exports = {
                 return;
             };
             if(!message.mentions.users.size){
-                client.db('usersDB').collection(message.guild.id).find({_id: +message.author.id}).toArray((err, user) => {
+                client.db('usersDB').collection(message.guild.id).find({_id: message.author.id}).toArray((err, user) => {
                     message.reply(`your current level is ${user[0].level}, and you have ${user[0].xp}xp`)
                 });
                     
             }else{
-                client.db('usersDB').collection(message.guild.id).find({_id: +message.mentions.users.first().id}).toArray((err, user) => {
+                client.db('usersDB').collection(message.guild.id).find({_id: message.mentions.users.first().id}).toArray((err, user) => {
                     message.channel.send(`<@${message.mentions.users.first().id}>'s current level is ${user[0].level}, and they have ${user[0].xp}xp`)
                 });
             };

@@ -61,13 +61,12 @@ mongo.connect(`${config.mongoURL}/usersDB`, {
         async function exist(){
 
             if(!message.author.bot){
-                let exists = await db.collection(message.guild.id).findOne({_id: +message.author.id});
+                let exists = await db.collection(message.guild.id).findOne({_id: message.author.id});
             
                 if(exists){
                     return;
                 }else{
-                    client.db('usersDB').collection(message.guild.id).insertOne({_id: +message.author.id, xp: 0, level: 0, cooldown: 0});
-                    console.log('added user');
+                    client.db('usersDB').collection(message.guild.id).insertOne({_id: message.author.id, xp: 0, level: 0, cooldown: 0});
                 };
             }else{
                 return;
@@ -76,9 +75,9 @@ mongo.connect(`${config.mongoURL}/usersDB`, {
 
         //generate random xp value and assign it to useres once a minute / cooldown amount
         async function xp(){
-            let check = await db.collection(message.guild.id).findOne({_id: +message.author.id});
+            let check = await db.collection(message.guild.id).findOne({_id: message.author.id});
             if(check){
-                db.collection(message.guild.id).find({_id: +message.author.id}).toArray((err, user) => {
+                db.collection(message.guild.id).find({_id: message.author.id}).toArray((err, user) => {
                     if(err){
                         console.error(err);
                         return;
@@ -86,11 +85,11 @@ mongo.connect(`${config.mongoURL}/usersDB`, {
                     let newXP = +user[0].xp + Math.floor(Math.random()*10) + 10;
                     let nextLVL = (((5/6) * (+user[0].level +1))*(2*((+user[0].level + 1) * (+user[0].level + 1)) +27 +91)).toFixed(0);
                     if(+user[0].cooldown + config.xpCooldown < Date.now()){
-                        db.collection(message.guild.id).updateOne({_id: +message.author.id}, {'$set': {xp: newXP}});
-                        db.collection(message.guild.id).updateOne({_id: +message.author.id}, {'$set': {cooldown: Date.now()}});
+                        db.collection(message.guild.id).updateOne({_id: message.author.id}, {'$set': {xp: newXP}});
+                        db.collection(message.guild.id).updateOne({_id: message.author.id}, {'$set': {cooldown: Date.now()}});
                     };
                     if(newXP > nextLVL){
-                        db.collection(message.guild.id).updateOne({_id: +message.author.id}, {'$set': {level: +user[0].level + 1}});
+                        db.collection(message.guild.id).updateOne({_id: message.author.id}, {'$set': {level: +user[0].level + 1}});
                         message.reply(config.lvlupMsg);
                     };
                 });
