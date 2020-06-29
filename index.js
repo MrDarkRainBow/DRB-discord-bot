@@ -19,17 +19,26 @@ bot.once('ready', ready => {
     
 });
 
-mongo.connect(`${config.mongoURL}/usersDB`, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}, (err, client) => {
+//read TOS.txt file and send message in users DM's when they join server. Can be dissabled in config
+fs.readFile('TOS.txt', 'utf8', (err, data) => {
     if(err){
         console.error(err);
         return;
     };
+    if(config.dmTOS === true){
+        bot.on("guildMemberAdd", member => {
+            member.send(data);
+        });
+    };
+});
 
+mongo.connect(`${config.mongoURL}/usersDB`, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}, (err, client) => {
+  
     const db = client.db('usersDB');
-
+  
     //create new collection when joining a new server
     bot.on("guildCreate", guild => {
         console.log("created collection for: " + guild.name);
@@ -56,6 +65,13 @@ mongo.connect(`${config.mongoURL}/usersDB`, {
     bot.on("message", message => {
 
         exist().then(xp());
+      
+        //suggestions channel managment system
+        if(message.channel.id === config.suggestionsID && !message.author.bot){       
+            message.react("👍").then(r => {
+                message.react("👎");
+            });
+        };
 
         //add user page in db if it does not exist
         async function exist(){
