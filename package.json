@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/MrDarkRainBow/DRB-discord-bot#readme",
   "dependencies": {
-    "discord.js": "^12.2.0"
+    "discord.js": "^12.2.0",
+    "mongodb": "^3.5.9"
   }
 }

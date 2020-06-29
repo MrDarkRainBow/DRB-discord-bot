@@ -1,6 +1,8 @@
 {
     "token": "your token here",
     "prefix": "desired prefix here",
+    "monogoURL": "your mongoDB url here",
+    "xpCooldown": "60000",
     "suggestionsID": "suggestions channel ID here",
     "dmTOS": false
 }
