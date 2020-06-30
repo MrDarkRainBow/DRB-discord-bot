@@ -4,6 +4,7 @@ const config = require("./config.json");
 const fs = require("fs");
 bot.commands = new Discord.Collection();
 const mongo = require('mongodb').MongoClient;
+const roles = require('./roles.json');
 
 //load command files
 const commandFiles = fs.readdirSync("./commands").filter(file => file.endsWith('.js'));
@@ -16,7 +17,6 @@ for(const file of commandFiles){
 //message in console when bot starts up
 bot.once('ready', ready => {
     console.log("The bot is up and running!");
-    
 });
 
 //read TOS.txt file and send message in users DM's when they join server. Can be dissabled in config
@@ -53,7 +53,6 @@ mongo.connect(`${config.mongoURL}/usersDB`, {
     //drop collection when kicked or banned from server
     bot.on("guildDelete", guild => {
         console.log("dropped collection for: " + guild.name);
-        
         db.dropCollection(guild.id, (err, res) => {
             if(err){
                 console.error(err);
@@ -65,7 +64,7 @@ mongo.connect(`${config.mongoURL}/usersDB`, {
     bot.on("message", message => {
 
         exist().then(xp());
-      
+
         //suggestions channel managment system
         if(message.channel.id === config.suggestionsID && !message.author.bot){       
             message.react("👍").then(r => {
@@ -107,6 +106,49 @@ mongo.connect(`${config.mongoURL}/usersDB`, {
                     if(newXP > nextLVL){
                         db.collection(message.guild.id).updateOne({_id: message.author.id}, {'$set': {level: +user[0].level + 1}});
                         message.reply(config.lvlupMsg);
+                    };
+                    switch(user[0].level){
+                        case roles.roles[0].level:
+                            message.member.roles.add(roles.roles[0].role);
+                            break;
+                        case roles.roles[1].level:
+                            message.member.roles.add(roles.roles[1].role);
+                            break;
+                        case roles.roles[2].level:
+                            message.member.roles.add(roles.roles[2].role);
+                            break;
+                        case roles.roles[3].level:
+                            message.member.roles.add(roles.roles[3].role);
+                            break;
+                        case roles.roles[4].level:
+                            message.member.roles.add(roles.roles[4].role);
+                            break;
+                        case roles.roles[5].level:
+                            message.member.roles.add(roles.roles[5].role);
+                            break;
+                        case roles.roles[6].level:
+                            message.member.roles.add(roles.roles[6].role);
+                            break;
+                        case roles.roles[7].level:
+                            message.member.roles.add(roles.roles[7].role);
+                            break;
+                        case roles.roles[8].level:
+                            message.member.roles.add(roles.roles[8].role);
+                            break;
+                        case roles.roles[9].level:
+                            message.member.roles.add(roles.roles[9].role);
+                            break;
+                        case roles.roles[10].level:
+                            message.member.roles.add(roles.roles[10].role);
+                            break;
+                        case roles.roles[11].level:
+                            message.member.roles.add(roles.roles[11].role);
+                            break;
+                        case roles.roles[12].level:
+                            message.member.roles.add(roles.roles[12].role);
+                            break;
+                        default:
+                            break;
                     };
                 });
             };
