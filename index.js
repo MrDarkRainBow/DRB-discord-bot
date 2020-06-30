@@ -107,72 +107,83 @@ mongo.connect(`${config.mongoURL}/usersDB`, {
                         db.collection(message.guild.id).updateOne({_id: message.author.id}, {'$set': {level: +user[0].level + 1}});
                         message.reply(config.lvlupMsg);
                     };
-                    switch(user[0].level){
-                        case roles.roles[0].level:
-                            message.member.roles.add(roles.roles[0].role);
-                            break;
-                        case roles.roles[1].level:
-                            for(a = 1; a >= 0; a--){
-                                message.member.roles.add(roles.roles[a].role);
-                            }
-                            break;
-                        case roles.roles[2].level:
-                            for(a = 2; a >= 0; a--){
-                                message.member.roles.add(roles.roles[a].role);
-                            }
-                            break;
-                        case roles.roles[3].level:
-                            for(a = 3; a >= 0; a--){
-                                message.member.roles.add(roles.roles[a].role);
-                            }
-                            break;
-                        case roles.roles[4].level:
-                            for(a = 4; a >= 0; a--){
-                                message.member.roles.add(roles.roles[a].role);
-                            }
-                            break;
-                        case roles.roles[5].level:
-                            for(a = 5; a >= 0; a--){
-                                message.member.roles.add(roles.roles[a].role);
-                            }
-                            break;
-                        case roles.roles[6].level:
-                            for(a = 6; a >= 0; a--){
-                                message.member.roles.add(roles.roles[a].role);
-                            }
-                            break;
-                        case roles.roles[7].level:
-                            for(a = 7; a >= 0; a--){
-                                message.member.roles.add(roles.roles[a].role);
-                            }
-                            break;
-                        case roles.roles[8].level:
-                            for(a = 8; a >= 0; a--){
-                                message.member.roles.add(roles.roles[a].role);
-                            }
-                            break;
-                        case roles.roles[9].level:
-                            for(a = 9; a >= 0; a--){
-                                message.member.roles.add(roles.roles[a].role);
-                            }
-                            break;
-                        case roles.roles[10].level:
-                            for(a = 10; a >= 0; a--){
-                                message.member.roles.add(roles.roles[a].role);
-                            }
-                            break;
-                        case roles.roles[11].level:
-                            for(a = 11; a >= 0; a--){
-                                message.member.roles.add(roles.roles[a].role);
-                            }
-                            break;
-                        case roles.roles[12].level:
-                            for(a = 12; a >= 0; a--){
-                                message.member.roles.add(roles.roles[a].role);
-                            }
-                            break;
-                        default:
-                            break;
+                    //I hate to do this but it's supposedly faster than using a switch with ranges https://stackoverflow.com/questions/6665997/switch-statement-for-greater-than-less-than
+                    if(user[0].level === 0) return;
+                    if(roles.roles[0].level < user[0].level < roles.roles[1].level){
+                        message.member.roles.add(roles.roles[0].role)
+                        return;
+                    };
+                    if(roles.roles[1].level < user[0].level < roles.roles[2].level){
+                        for(a = 1; a >= 0; a--){
+                            message.member.roles.add(roles.roles[a].role);
+                        };
+                        return;
+                    };
+                    if(roles.roles[2].level < user[0].level < roles.roles[3].level){
+                        for(a = 2; a >= 0; a--){
+                            message.member.roles.add(roles.roles[a].role);
+                        };
+                        return;
+                    };
+                    if(roles.roles[3].level < user[0].level < roles.roles[4].level){
+                        for(a = 3; a >= 0; a--){
+                            message.member.roles.add(roles.roles[a].role);
+                        };
+                        return;
+                    };
+                    if(roles.roles[4].level < user[0].level < roles.roles[5].level){
+                        for(a = 4; a >= 0; a--){
+                            message.member.roles.add(roles.roles[a].role);
+                        };
+                        return;
+                    };
+                    if(roles.roles[5].level < user[0].level < roles.roles[6].level){
+                        for(a = 5; a >= 0; a--){
+                            message.member.roles.add(roles.roles[a].role);
+                        };
+                        return;
+                    };
+                    if(roles.roles[6].level < user[0].level < roles.roles[7].level){
+                        for(a = 6; a >= 0; a--){
+                            message.member.roles.add(roles.roles[a].role);
+                        };
+                        return;
+                    };
+                    if(roles.roles[7].level < user[0].level < roles.roles[8].level){
+                        for(a = 7; a >= 0; a--){
+                            message.member.roles.add(roles.roles[a].role);
+                        };
+                        return;
+                    };
+                    if(roles.roles[8].level < user[0].level < roles.roles[9].level){
+                        for(a = 8; a >= 0; a--){
+                            message.member.roles.add(roles.roles[a].role);
+                        };
+                        return;
+                    };
+                    if(roles.roles[9].level < user[0].level < roles.roles[10].level){
+                        for(a = 9; a >= 0; a--){
+                            message.member.roles.add(roles.roles[a].role);
+                        };
+                        return;
+                    };
+                    if(roles.roles[10].level < user[0].level < roles.roles[11].level){
+                        for(a = 10; a >= 0; a--){
+                            message.member.roles.add(roles.roles[a].role);
+                        };
+                        return;
+                    };
+                    if(roles.roles[11].level < user[0].level < roles.roles[12].level){
+                        for(a = 11; a >= 0; a--){
+                            message.member.roles.add(roles.roles[a].role);
+                        };
+                        return;
+                    };
+                    if(roles.roles[12].level < user[0].level){
+                        for(a = 12; a >= 0; a--){
+                            message.member.roles.add(roles.roles[a].role);
+                        };
+                        return;
                     };
                 });
             };
