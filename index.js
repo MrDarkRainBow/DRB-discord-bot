@@ -112,40 +112,64 @@ mongo.connect(`${config.mongoURL}/usersDB`, {
                             message.member.roles.add(roles.roles[0].role);
                             break;
                         case roles.roles[1].level:
-                            message.member.roles.add(roles.roles[1].role);
+                            for(a = 1; a >= 0; a--){
+                                message.member.roles.add(roles.roles[a].role);
+                            }
                             break;
                         case roles.roles[2].level:
-                            message.member.roles.add(roles.roles[2].role);
+                            for(a = 2; a >= 0; a--){
+                                message.member.roles.add(roles.roles[a].role);
+                            }
                             break;
                         case roles.roles[3].level:
-                            message.member.roles.add(roles.roles[3].role);
+                            for(a = 3; a >= 0; a--){
+                                message.member.roles.add(roles.roles[a].role);
+                            }
                             break;
                         case roles.roles[4].level:
-                            message.member.roles.add(roles.roles[4].role);
+                            for(a = 4; a >= 0; a--){
+                                message.member.roles.add(roles.roles[a].role);
+                            }
                             break;
                         case roles.roles[5].level:
-                            message.member.roles.add(roles.roles[5].role);
+                            for(a = 5; a >= 0; a--){
+                                message.member.roles.add(roles.roles[a].role);
+                            }
                             break;
                         case roles.roles[6].level:
-                            message.member.roles.add(roles.roles[6].role);
+                            for(a = 6; a >= 0; a--){
+                                message.member.roles.add(roles.roles[a].role);
+                            }
                             break;
                         case roles.roles[7].level:
-                            message.member.roles.add(roles.roles[7].role);
+                            for(a = 7; a >= 0; a--){
+                                message.member.roles.add(roles.roles[a].role);
+                            }
                             break;
                         case roles.roles[8].level:
-                            message.member.roles.add(roles.roles[8].role);
+                            for(a = 8; a >= 0; a--){
+                                message.member.roles.add(roles.roles[a].role);
+                            }
                             break;
                         case roles.roles[9].level:
-                            message.member.roles.add(roles.roles[9].role);
+                            for(a = 9; a >= 0; a--){
+                                message.member.roles.add(roles.roles[a].role);
+                            }
                             break;
                         case roles.roles[10].level:
-                            message.member.roles.add(roles.roles[10].role);
+                            for(a = 10; a >= 0; a--){
+                                message.member.roles.add(roles.roles[a].role);
+                            }
                             break;
                         case roles.roles[11].level:
-                            message.member.roles.add(roles.roles[11].role);
+                            for(a = 11; a >= 0; a--){
+                                message.member.roles.add(roles.roles[a].role);
+                            }
                             break;
                         case roles.roles[12].level:
-                            message.member.roles.add(roles.roles[12].role);
+                            for(a = 12; a >= 0; a--){
+                                message.member.roles.add(roles.roles[a].role);
+                            }
                             break;
                         default:
                             break;
