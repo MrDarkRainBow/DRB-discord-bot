@@ -5,6 +5,8 @@ const fs = require("fs");
 bot.commands = new Discord.Collection();
 const mongo = require('mongodb').MongoClient;
 const roles = require('./roles.json');
+const channels = require('./channels.json');
+const words = require('./words.json');
 
 //load command files
 const commandFiles = fs.readdirSync("./commands").filter(file => file.endsWith('.js'));
@@ -90,6 +92,10 @@ mongo.connect(`${config.mongoURL}/usersDB`, {
 
         //generate random xp value and assign it to useres once a minute / cooldown amount
         async function xp(){
+            if(channels.channels.includes(message.channel.id)) return;
+            for(a = words.length; a >= 0; a--){
+                if(message.content.includes(words.xp-banned[a])) return;
+            };
             let check = await db.collection(message.guild.id).findOne({_id: message.author.id});
             if(check){
                 db.collection(message.guild.id).find({_id: message.author.id}).toArray((err, user) => {
