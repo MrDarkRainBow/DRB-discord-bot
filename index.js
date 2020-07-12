@@ -4,7 +4,6 @@ const config = require("./config.json");
 const fs = require("fs");
 bot.commands = new Discord.Collection();
 const mongo = require('mongodb').MongoClient;
-const roles = require('./roles.json');
 const channels = require('./channels.json');
 const words = require('./words.json');
 
@@ -33,6 +32,12 @@ fs.readFile('TOS.txt', 'utf8', (err, data) => {
         });
     };
 });
+
+//simple round to 5 function
+
+function round5(x){
+    return Math.floor(x/5)*5;
+};
 
 mongo.connect(`${config.mongoURL}/usersDB`, {
     useNewUrlParser: true,
@@ -65,7 +70,7 @@ mongo.connect(`${config.mongoURL}/usersDB`, {
 
     bot.on("message", message => {
 
-        exist().then(xp());
+        exist().then(xp()).then(levelRoles());
 
         //suggestions channel managment system
         if(message.channel.id === config.suggestionsID && !message.author.bot){       
@@ -113,151 +118,58 @@ mongo.connect(`${config.mongoURL}/usersDB`, {
                         db.collection(message.guild.id).updateOne({_id: message.author.id}, {'$set': {level: +user[0].level + 1}});
                         message.reply(config.lvlupMsg);
                     };
-                    //I hate to do this but it's supposedly faster than using a switch with ranges https://stackoverflow.com/questions/6665997/switch-statement-for-greater-than-less-than
-                    if(user[0].level === 0) return;
-                    if(roles[0].level < user[0].level < roles[1].level){
-                        try{
-                            message.member.roles.add(roles[0].role);
-                        } catch (error){
-                            console.error(error);
-                            return; 
-                        }
-                        return;
-                    };
-                    if(roles[1].level < user[0].level < roles[2].level){
-                        for(a = 1; a >= 0; a--){
-                            try{
-                                message.member.roles.add(roles[a].role);
-                            }catch(error){
-                                console.error(error);
-                                return;
-                            };
-                        };
-                        return;
-                    };
-                    if(roles[2].level < user[0].level < roles[3].level){
-                        for(a = 2; a >= 0; a--){
-                            try{
-                                message.member.roles.add(roles[a].role);
-                            }catch(error){
-                                console.error(error);
-                                return;
-                            };
-                        };
-                        return;
-                    };
-                    if(roles[3].level < user[0].level < roles[4].level){
-                        for(a = 3; a >= 0; a--){
-                            try{
-                                message.member.roles.add(roles[a].role);
-                            }catch(error){
-                                console.error(error);
-                                return;
-                            };
-                        };
-                        return;
-                    };
-                    if(roles[4].level < user[0].level < roles[5].level){
-                        for(a = 4; a >= 0; a--){
-                            try{
-                                message.member.roles.add(roles[a].role);
-                            }catch(error){
-                                console.error(error);
-                                return;
-                            };
-                        };
-                        return;
-                    };
-                    if(roles[5].level < user[0].level < roles[6].level){
-                        for(a = 5; a >= 0; a--){
-                            try{
-                                message.member.roles.add(roles[a].role);
-                            }catch(error){
-                                console.error(error);
-                                return;
-                            };
-                        };
-                        return;
-                    };
-                    if(roles[6].level < user[0].level < roles[7].level){
-                        for(a = 6; a >= 0; a--){
-                            try{
-                                message.member.roles.add(roles[a].role);
-                            }catch(error){
-                                console.error(error);
-                                return;
-                            };
-                        };
-                        return;
-                    };
-                    if(roles[7].level < user[0].level < roles[8].level){
-                        for(a = 7; a >= 0; a--){
-                            try{
-                                message.member.roles.add(roles[a].role);
-                            }catch(error){
-                                console.error(error);
-                                return;
-                            };
-                        };
-                        return;
-                    };
-                    if(roles[8].level < user[0].level < roles[9].level){
-                        for(a = 8; a >= 0; a--){
-                            try{
-                                message.member.roles.add(roles[a].role);
-                            }catch(error){
-                                console.error(error);
-                                return;
-                            };
-                        };
-                        return;
-                    };
-                    if(roles[9].level < user[0].level < roles[10].level){
-                        for(a = 9; a >= 0; a--){
-                            try{
-                                message.member.roles.add(roles[a].role);
-                            }catch(error){
-                                console.error(error);
-                                return;
-                            };
-                        };
-                        return;
-                    };
-                    if(roles[10].level < user[0].level < roles[11].level){
-                        for(a = 10; a >= 0; a--){
-                            try{
-                                message.member.roles.add(roles[a].role);
-                            }catch(error){
-                                console.error(error);
-                                return;
-                            };
-                        };
-                        return;
-                    };
-                    if(roles[11].level < user[0].level < roles[12].level){
-                        for(a = 11; a >= 0; a--){
-                            try{
-                                message.member.roles.add(roles[a].role);
-                            }catch(error){
-                                console.error(error);
-                                return;
-                            };
-                        };
-                        return;
-                    };
-                    if(roles[12].level < user[0].level){
-                        for(a = 12; a >= 0; a--){
-                            try{
-                                message.member.roles.add(roles[a].role);
-                            }catch(error){
-                                console.error(error);
-                                return;
-                            };
-                        };
-                        return;
-                    };
                 });
             };
+        };
+
+        async function levelRoles(){
+            if(message.author.bot) return;
+            db.collection(message.guild.id).find({_id: message.author.id}).toArray((err, user) => {
+                let level = round5(user[0].level);
+                switch(level){
+                    case 1:
+                        message.member.roles.add("724075138705915905");
+                        break;
+                    case 5:
+                        message.member.roles.add("724075135853789195");
+                        break;
+                    case 10:
+                        message.member.roles.add("724075133266034702");
+                        break;
+                    case 15:
+                        message.member.roles.add("724075068426289164");
+                        break;
+                    case 20:
+                        message.member.roles.add("724075067260141658");
+                        break;
+                    case 25:
+                        message.member.roles.add("724075067071266936");
+                        break;
+                    case 30:
+                        message.member.roles.add("724075066307903568");
+                        break;
+                    case 35:
+                        message.member.roles.add("724075065699860630");
+                        break;
+                    case 40:
+                        message.member.roles.add("724075064940560424");
+                        break;
+                    case 45:
+                        message.member.roles.add("724075064189911041");
+                        break;
+                    case 50:
+                        message.member.roles.add("724075063455907911");
+                        break;
+                    case 55:
+                        message.member.roles.add("724075062692544512");
+                        break;
+                    case 60:
+                        message.member.roles.add("724075060406779994");
+                        break;
+                    default:
+                        break;
+                }
+            });
         };
 
         //command handler
