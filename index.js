@@ -115,19 +115,19 @@ mongo.connect(`${config.mongoURL}/usersDB`, {
                     };
                     //I hate to do this but it's supposedly faster than using a switch with ranges https://stackoverflow.com/questions/6665997/switch-statement-for-greater-than-less-than
                     if(user[0].level === 0) return;
-                    if(roles.roles[0].level < user[0].level < roles.roles[1].level){
+                    if(roles[0].level < user[0].level < roles[1].level){
                         try{
-                            message.member.roles.add(roles.roles[0].role);
+                            message.member.roles.add(roles[0].role);
                         } catch (error){
                             console.error(error);
                             return; 
                         }
                         return;
                     };
-                    if(roles.roles[1].level < user[0].level < roles.roles[2].level){
+                    if(roles[1].level < user[0].level < roles[2].level){
                         for(a = 1; a >= 0; a--){
                             try{
-                                message.member.roles.add(roles.roles[a].role);
+                                message.member.roles.add(roles[a].role);
                             }catch(error){
                                 console.error(error);
                                 return;
@@ -135,10 +135,10 @@ mongo.connect(`${config.mongoURL}/usersDB`, {
                         };
                         return;
                     };
-                    if(roles.roles[2].level < user[0].level < roles.roles[3].level){
+                    if(roles[2].level < user[0].level < roles[3].level){
                         for(a = 2; a >= 0; a--){
                             try{
-                                message.member.roles.add(roles.roles[a].role);
+                                message.member.roles.add(roles[a].role);
                             }catch(error){
                                 console.error(error);
                                 return;
@@ -146,10 +146,10 @@ mongo.connect(`${config.mongoURL}/usersDB`, {
                         };
                         return;
                     };
-                    if(roles.roles[3].level < user[0].level < roles.roles[4].level){
+                    if(roles[3].level < user[0].level < roles[4].level){
                         for(a = 3; a >= 0; a--){
                             try{
-                                message.member.roles.add(roles.roles[a].role);
+                                message.member.roles.add(roles[a].role);
                             }catch(error){
                                 console.error(error);
                                 return;
@@ -157,10 +157,10 @@ mongo.connect(`${config.mongoURL}/usersDB`, {
                         };
                         return;
                     };
-                    if(roles.roles[4].level < user[0].level < roles.roles[5].level){
+                    if(roles[4].level < user[0].level < roles[5].level){
                         for(a = 4; a >= 0; a--){
                             try{
-                                message.member.roles.add(roles.roles[a].role);
+                                message.member.roles.add(roles[a].role);
                             }catch(error){
                                 console.error(error);
                                 return;
@@ -168,10 +168,10 @@ mongo.connect(`${config.mongoURL}/usersDB`, {
                         };
                         return;
                     };
-                    if(roles.roles[5].level < user[0].level < roles.roles[6].level){
+                    if(roles[5].level < user[0].level < roles[6].level){
                         for(a = 5; a >= 0; a--){
                             try{
-                                message.member.roles.add(roles.roles[a].role);
+                                message.member.roles.add(roles[a].role);
                             }catch(error){
                                 console.error(error);
                                 return;
@@ -179,10 +179,10 @@ mongo.connect(`${config.mongoURL}/usersDB`, {
                         };
                         return;
                     };
-                    if(roles.roles[6].level < user[0].level < roles.roles[7].level){
+                    if(roles[6].level < user[0].level < roles[7].level){
                         for(a = 6; a >= 0; a--){
                             try{
-                                message.member.roles.add(roles.roles[a].role);
+                                message.member.roles.add(roles[a].role);
                             }catch(error){
                                 console.error(error);
                                 return;
@@ -190,10 +190,10 @@ mongo.connect(`${config.mongoURL}/usersDB`, {
                         };
                         return;
                     };
-                    if(roles.roles[7].level < user[0].level < roles.roles[8].level){
+                    if(roles[7].level < user[0].level < roles[8].level){
                         for(a = 7; a >= 0; a--){
                             try{
-                                message.member.roles.add(roles.roles[a].role);
+                                message.member.roles.add(roles[a].role);
                             }catch(error){
                                 console.error(error);
                                 return;
@@ -201,10 +201,10 @@ mongo.connect(`${config.mongoURL}/usersDB`, {
                         };
                         return;
                     };
-                    if(roles.roles[8].level < user[0].level < roles.roles[9].level){
+                    if(roles[8].level < user[0].level < roles[9].level){
                         for(a = 8; a >= 0; a--){
                             try{
-                                message.member.roles.add(roles.roles[a].role);
+                                message.member.roles.add(roles[a].role);
                             }catch(error){
                                 console.error(error);
                                 return;
@@ -212,10 +212,10 @@ mongo.connect(`${config.mongoURL}/usersDB`, {
                         };
                         return;
                     };
-                    if(roles.roles[9].level < user[0].level < roles.roles[10].level){
+                    if(roles[9].level < user[0].level < roles[10].level){
                         for(a = 9; a >= 0; a--){
                             try{
-                                message.member.roles.add(roles.roles[a].role);
+                                message.member.roles.add(roles[a].role);
                             }catch(error){
                                 console.error(error);
                                 return;
@@ -223,10 +223,10 @@ mongo.connect(`${config.mongoURL}/usersDB`, {
                         };
                         return;
                     };
-                    if(roles.roles[10].level < user[0].level < roles.roles[11].level){
+                    if(roles[10].level < user[0].level < roles[11].level){
                         for(a = 10; a >= 0; a--){
                             try{
-                                message.member.roles.add(roles.roles[a].role);
+                                message.member.roles.add(roles[a].role);
                             }catch(error){
                                 console.error(error);
                                 return;
@@ -234,10 +234,10 @@ mongo.connect(`${config.mongoURL}/usersDB`, {
                         };
                         return;
                     };
-                    if(roles.roles[11].level < user[0].level < roles.roles[12].level){
+                    if(roles[11].level < user[0].level < roles[12].level){
                         for(a = 11; a >= 0; a--){
                             try{
-                                message.member.roles.add(roles.roles[a].role);
+                                message.member.roles.add(roles[a].role);
                             }catch(error){
                                 console.error(error);
                                 return;
@@ -245,10 +245,10 @@ mongo.connect(`${config.mongoURL}/usersDB`, {
                         };
                         return;
                     };
-                    if(roles.roles[12].level < user[0].level){
+                    if(roles[12].level < user[0].level){
                         for(a = 12; a >= 0; a--){
                             try{
-                                message.member.roles.add(roles.roles[a].role);
+                                message.member.roles.add(roles[a].role);
                             }catch(error){
                                 console.error(error);
                                 return;
