@@ -173,7 +173,7 @@ mongo.connect(`${config.mongoURL}/usersDB`, {
         };
 
         //command handler
-        if(!message.content.startsWith(config.prefix) || message.author.bot) return;
+        if(!message.content.startsWith(config.prefix)) return;
 
         const args = message.content.slice(config.prefix.length).split(/ +/);
         const commandName = args.shift().toLowerCase();

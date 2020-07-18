@@ -40,11 +40,13 @@ module.exports = {
                 let rank = lb.findIndex(x => x.id = message.author.id);
                 let page = 1;
                 let pages = (lb.length / 5).toFixed(0);
-                message.channel.send(embed(page, pages, lb, rank)).then(msg =>{
-                    msg.react("⬅").then(r =>{
-                        msg.react("➡")
+                if(!message.author.bot){
+                    message.channel.send(embed(page, pages, lb, rank)).then(msg =>{
+                        msg.react("⬅").then(r =>{
+                            msg.react("➡")
+                        });
                     });
-                });
+                };
                 //reaction collectors for page moving
                 const filterF = (reaction, user) => reaction.emoji.name === "➡" && !user.bot;
                 const filterB = (reaction, user) => reaction.emoji.name === "⬅" && !user.bot;
