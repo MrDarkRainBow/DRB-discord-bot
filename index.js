@@ -150,10 +150,10 @@ mongo.connect(`${config.mongoURL}/usersDB`, {
 
         async function leaderboard() {
             client.db('usersDB').collection(message.guild.id).find().sort([['xp', -1]]).toArray((err, lb)=>{
+                let rank = lb.findIndex(x => x.id = message.author.id);
+                let page = 1;
+                let pages = (lb.length / 5).toFixed(0);
                 if(message.content === "!leaderboard" || message.content === "!lb"){
-                    let rank = lb.findIndex(x => x.id = message.author.id);
-                    let page = 1;
-                    let pages = (lb.length / 5).toFixed(0);
                     if(!message.author.bot){
                         message.channel.send(embed(page, pages, lb, rank)).then(msg =>{
                             msg.react("⬅").then(r =>{
