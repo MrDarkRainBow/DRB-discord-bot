@@ -13,9 +13,11 @@ module.exports = {
                 console.error(err);
                 return;
             };
+            let nextLvl = (((5/6) * (+user[0].level + 1)) * (2 * ((+user[0].level + 1) * (+user[0].level + 1)) + 118)).toFixed(0);
+            
             if(!message.mentions.users.size){
                 client.db('usersDB').collection(message.guild.id).find({_id: message.author.id}).toArray((err, user) => {
-                    message.reply(`your current level is ${user[0].level}, and you have ${user[0].xp}xp`)
+                    message.reply(`your current level is ${user[0].level}, you have ${user[0].xp}xp and need ${nextLvl}xp for level ${user[0].level + 1}.`)
                 });
                     
             }else{

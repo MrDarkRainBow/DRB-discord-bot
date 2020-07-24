@@ -6,6 +6,7 @@ bot.commands = new Discord.Collection();
 const mongo = require('mongodb').MongoClient;
 const channels = require('./channels.json');
 const words = require('./words.json');
+const roles = require('./roles.json')
 
 //load command files
 const commandFiles = fs.readdirSync("./commands").filter(file => file.endsWith('.js'));
@@ -206,52 +207,54 @@ mongo.connect(`${config.mongoURL}/usersDB`, {
         };
 
         async function levelRoles(){
+            let result = await db.collection(message.guild.id).findOne({_id: message.author.id});
+            if(!result) return;
             if(message.author.bot) return;
             db.collection(message.guild.id).find({_id: message.author.id}).toArray((err, user) => {
                 let level = round5(user[0].level);
                 switch(level){
                     case 1:
-                        message.member.roles.add("724075138705915905");
+                        message.member.roles.add(roles.level1);
                         break;
                     case 5:
-                        message.member.roles.add("724075135853789195");
+                        message.member.roles.add(roles.level5);
                         break;
                     case 10:
-                        message.member.roles.add("724075133266034702");
+                        message.member.roles.add(roles.level10);
                         break;
                     case 15:
-                        message.member.roles.add("724075068426289164");
+                        message.member.roles.add(roles.level15);
                         break;
                     case 20:
-                        message.member.roles.add("724075067260141658");
+                        message.member.roles.add(roles.level20);
                         break;
                     case 25:
-                        message.member.roles.add("724075067071266936");
+                        message.member.roles.add(roles.level25);
                         break;
                     case 30:
-                        message.member.roles.add("724075066307903568");
+                        message.member.roles.add(roles.level30);
                         break;
                     case 35:
-                        message.member.roles.add("724075065699860630");
+                        message.member.roles.add(roles.level35);
                         break;
                     case 40:
-                        message.member.roles.add("724075064940560424");
+                        message.member.roles.add(roles.level40);
                         break;
                     case 45:
-                        message.member.roles.add("724075064189911041");
+                        message.member.roles.add(roles.level45);
                         break;
                     case 50:
-                        message.member.roles.add("724075063455907911");
+                        message.member.roles.add(roles.level50);
                         break;
                     case 55:
-                        message.member.roles.add("724075062692544512");
+                        message.member.roles.add(roles.level55);
                         break;
                     case 60:
-                        message.member.roles.add("724075060406779994");
+                        message.member.roles.add(roles.level60);
                         break;
                     default:
                         break;
-                }
+                };
             });
         };
 
