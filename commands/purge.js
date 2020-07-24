@@ -1,7 +1,7 @@
 module.exports = {
     name: 'purge',
     description: 'deletes a large amount of messages at once',
-    aliases: 'clear',
+    aliases: ['clear'],
     execute(message, args){
         const amount = args.join(" ");
         if(!amount) return message.reply("you have to specify the number of messages to remove!");

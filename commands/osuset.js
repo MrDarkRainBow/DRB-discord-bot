@@ -14,9 +14,13 @@ module.exports = {
                 console.error(err);
                 return;
             };
-            request(`https://osu.ppy.sh/api/get_user?k=${config.osuKey}&u=${args[0]}&type=string`, {json: true}, (err, res, body) => {
+            let username = args.join(' ');
+            request(`https://osu.ppy.sh/api/get_user?k=${config.osuKey}&u=${username}&type=string`, {json: true}, (err, res, body) => {
                 if(err) console.error(err);
-                console.log(body[0].user_id)
+                if(!body.length){
+                    message.reply("please specify a valid osu user.");
+                    return;
+                };
                 client.db('usersDB').collection(message.guild.id).updateOne({_id: message.author.id}, {'$set': {osu: body[0].user_id}});
             })
         });
