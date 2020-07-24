@@ -22,6 +22,7 @@ module.exports = {
                     return;
                 };
                 client.db('usersDB').collection(message.guild.id).updateOne({_id: message.author.id}, {'$set': {osu: body[0].user_id}});
+                message.reply(`set your osu username to ${body[0].username}!`);
             })
         });
     },
